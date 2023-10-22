@@ -84,7 +84,20 @@ async function init() {
 
   const gui = new GUI();
   const folder1 = gui.addFolder("PointLight");
+  folder1.open();
+
   folder1.add(pLight.position, "x", -500, 500, 1);
+  folder1.add(pLight.position, "y", -500, 500, 1);
+  folder1.add(pLight.position, "z", -500, 500, 1);
+
+  const folder2 = gui.addFolder("Color");
+  folder2.open();
+  folder2.addColor(COLORS, "MAIN").onChange(() => {
+    mainMate.color.set(COLORS.MAIN);
+  });
+  folder2.addColor(COLORS, "SUB").onChange(() => {
+    subMate.color.set(COLORS.SUB);
+  });
 
   function animate() {
     requestAnimationFrame(animate);
