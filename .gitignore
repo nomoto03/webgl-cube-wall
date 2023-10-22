@@ -3,4 +3,6 @@
 # dependencies
 /node_modules
 /dist
-.cache
+.parcel-cache
+.vscode
+.DS_Store
