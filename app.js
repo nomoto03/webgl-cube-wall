@@ -99,8 +99,28 @@ async function init() {
     subMate.color.set(COLORS.SUB);
   });
 
+  function getAction(x) {
+    return function () {
+      const rand = mapRand(0.3, 0.6);
+      const direction = x < 0 ? rand : -rand;
+      this.position.z += direction;
+    };
+  }
+  // 立方体の移動
+  let targetBoxes = [];
+  setInterval(() => {
+    targetBoxes.forEach((mesh) => (mesh.__action = null));
+    targetBoxes = [];
+    for (let i = 0; i < 10; i++) {
+      const mesh = boxes[mapRand(0, boxes.length - 1, true)];
+      mesh.__action = getAction(mesh.position.z);
+      targetBoxes.push(mesh);
+    }
+  }, 2000);
+
   function animate() {
     requestAnimationFrame(animate);
+    targetBoxes.forEach((mesh) => mesh.__action());
 
     control.update();
 
